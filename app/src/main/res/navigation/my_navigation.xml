@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_navigation"
+    app:startDestination="@id/helloFragment">
+
+
+    <action android:id="@+id/action_global_trackingFragment"
+        app:destination="@+id/trackingFragment"
+        app:launchSingleTop="true" />
+
+    <fragment
+        android:id="@+id/helloFragment"
+        android:name="com.example.mydiplom.ui.fragments.HelloFragment"
+        android:label="fragment_hello"
+        tools:layout="@layout/fragment_hello" >
+        <action
+            android:id="@+id/action_helloFragment_to_fitFragment"
+            app:destination="@id/fitFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/fitFragment"
+        android:name="com.example.mydiplom.ui.fragments.FitFragment"
+        android:label="FitFragment" >
+        <action
+            android:id="@+id/action_fitFragment_to_statisticFragment"
+            app:destination="@id/statisticFragment" />
+        <action
+            android:id="@+id/action_fitFragment_to_helloFragment"
+            app:destination="@id/helloFragment" />
+        <action
+            android:id="@+id/action_fitFragment_to_addToStatisticFragment"
+            app:destination="@id/addToStatisticFragment" />
+        <action
+            android:id="@+id/action_fitFragment_to_trackingFragment"
+            app:destination="@id/trackingFragment" />
+        <action
+            android:id="@+id/action_fitFragment_to_normOfDayWaterFragment"
+            app:destination="@id/normOfDayWaterFragment" />
+        <action
+            android:id="@+id/action_fitFragment_to_allRunsFragment"
+            app:destination="@id/allRunsFragment" />
+
+
+    </fragment>
+    <fragment
+        android:id="@+id/statisticFragment"
+        android:name="com.example.mydiplom.ui.fragments.StatisticFragment"
+        android:label="fragment_statistic"
+        tools:layout="@layout/fragment_statistic" >
+        <action
+            android:id="@+id/action_statisticFragment_to_fitFragment"
+            app:destination="@id/fitFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/changeThemeFragment"
+        android:name="com.example.mydiplom.ChangeThemeFragment"
+        android:label="fragment_change_theme"
+        tools:layout="@layout/fragment_change_theme" />
+    <fragment
+        android:id="@+id/addToStatisticFragment"
+        android:name="com.example.mydiplom.ui.fragments.AddToStatisticFragment"
+        android:label="fragment_add_to_statistic"
+        tools:layout="@layout/fragment_add_to_statistic" >
+        <action
+            android:id="@+id/action_addToStatisticFragment_to_fitFragment"
+            app:destination="@id/fitFragment" />
+        <argument
+            android:name="date"
+            app:argType="string" />
+        <argument
+            android:name="calories"
+            app:argType="integer" />
+        <argument
+            android:name="water"
+            app:argType="integer" />
+        <argument
+            android:name="pushUps"
+            app:argType="integer" />
+        <argument
+            android:name="squats"
+            app:argType="integer" />
+        <argument
+            android:name="press"
+            app:argType="integer" />
+        <argument
+            android:name="runKm"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/trackingFragment"
+        android:name="com.example.mydiplom.ui.fragments.TrackingFragment"
+        android:label="fragment_tracking"
+        tools:layout="@layout/fragment_tracking" >
+        <action
+            android:id="@+id/action_trackingFragment_to_fitFragment"
+            app:destination="@id/fitFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/normOfDayWaterFragment"
+        android:name="com.example.mydiplom.ui.fragments.NormOfDayWaterFragment"
+        android:label="fragment_norm_of_day_water"
+        tools:layout="@layout/fragment_norm_of_day_water" >
+        <action
+            android:id="@+id/action_normOfDayWaterFragment_to_fitFragment"
+            app:destination="@id/fitFragment" />
+        <argument
+            android:name="daywater"
+            app:argType="integer" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/allRunsFragment"
+        android:name="com.example.mydiplom.ui.fragments.AllRunsFragment"
+        android:label="fragment_all_runs"
+        tools:layout="@layout/fragment_all_runs" />
+</navigation>

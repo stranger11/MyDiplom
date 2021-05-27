@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.AddToStatisticFragment">
+
+
+    <TextView
+        android:id="@+id/from_fit_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.107"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/from_fit_water"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/from_fit_date"
+        app:layout_constraintStart_toStartOf="@+id/from_fit_date"
+        app:layout_constraintTop_toBottomOf="@+id/from_fit_date" />
+
+    <TextView
+        android:id="@+id/from_fit_calories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/from_fit_water"
+        app:layout_constraintStart_toStartOf="@+id/from_fit_water"
+        app:layout_constraintTop_toBottomOf="@+id/from_fit_water" />
+
+    <TextView
+        android:id="@+id/from_fit_pushups"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/from_fit_calories"
+        app:layout_constraintStart_toStartOf="@+id/from_fit_calories"
+        app:layout_constraintTop_toBottomOf="@+id/from_fit_calories" />
+
+    <TextView
+        android:id="@+id/from_fit_squats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/from_fit_pushups"
+        app:layout_constraintStart_toStartOf="@+id/from_fit_pushups"
+        app:layout_constraintTop_toBottomOf="@+id/from_fit_pushups" />
+
+    <TextView
+        android:id="@+id/from_fit_press"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/from_fit_squats"
+        app:layout_constraintStart_toStartOf="@+id/from_fit_squats"
+        app:layout_constraintTop_toBottomOf="@+id/from_fit_squats" />
+
+    <TextView
+        android:id="@+id/from_fit_run"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/from_fit_press"
+        app:layout_constraintStart_toStartOf="@+id/from_fit_press"
+        app:layout_constraintTop_toBottomOf="@+id/from_fit_press" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="284dp"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
