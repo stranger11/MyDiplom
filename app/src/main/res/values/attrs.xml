@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="mainBackground" format="reference" />
+    <attr name="mainTextColor" format="reference" />
+    <attr name="dateAndIndicator" format="reference" />
+    <attr name="button_background" format="reference" />
+    <attr name="iconStatisticColor" format="reference" />
+    <attr name="iconSettingsColor" format="reference" />
+    <attr name="iconWaterColor" format="reference" />
+    <attr name="iconPushUpColor" format="reference" />
+    <attr name="iconSquatColor" format="reference" />
+    <attr name="iconPressColor" format="reference" />
+    <attr name="iconManColor" format="reference" />
+    <attr name="iconRunColor" format="reference" />
+    <attr name="editMyTextColor" format="reference" />
+    <attr name="customRowBackground" format="reference" />
+    <attr name="customRowDateColor" format="reference" />
+    <attr name="customRowTextColor" format="reference" />
+    <attr name="customRowViewHorizontalColor" format="reference" />
+    <attr name="customRowViewVerticalColor" format="reference" />
+    <attr name="helloText" format="reference" />
+    <attr name="helloEditText" format="reference" />
+    <attr name="helloContinueButton" format="reference" />
+    <attr name="kcal" format="reference" />
+
+</resources>

@@ -3,21 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="?mainBackground"
     android:layout_width="match_parent"
-    android:background="#151D2A"
     android:layout_height="match_parent"
     tools:context=".ui.fragments.HelloFragment">
 
     <TextView
         android:id="@+id/text_hello"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        style="?helloText"
         android:layout_marginTop="96dp"
-        android:fontFamily="@font/kanit"
-        android:gravity="center"
-        android:text="Please provide some information to customize the experience for you…!"
-        android:textColor="@color/white"
-        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,34 +20,22 @@
 
     <EditText
         android:id="@+id/edittext_height"
-        android:layout_width="210dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
-        android:gravity="center"
-        android:background="@drawable/rectangle_edittext"
+        style="?helloEditText"
+        android:layout_marginTop="24dp"
         android:ems="10"
-        android:inputType="number"
-        android:textSize="20sp"
-        android:fontFamily="@font/kanit"
-        android:textColorHint="@color/black"
         android:hint="Height"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_hello" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextName" />
 
     <EditText
         android:id="@+id/edittext_weight"
-        android:layout_width="210dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:background="@drawable/rectangle_edittext"
-        android:inputType="number"
+        style="?helloEditText"
+        android:layout_marginTop="24dp"
         android:ems="10"
-        android:textSize="20sp"
-        android:textColorHint="@color/black"
         android:hint="Weight"
-        android:gravity="center"
-        android:fontFamily="@font/kanit"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="@+id/edittext_height"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/edittext_height"
@@ -67,8 +49,8 @@
         android:background="@drawable/itog_for_button"
         android:fontFamily="@font/kanit"
         android:text="Continue"
-        android:textColor="@color/black"
-        app:backgroundTint="#50F090"
+        android:textColor="@color/white"
+        app:backgroundTint="#DA1D6B"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
@@ -81,10 +63,20 @@
         android:layout_marginTop="24dp"
         android:fontFamily="@font/kanit"
         android:text="Remember"
-        android:textColor="@color/white"
+        android:textColor="#DA1D6B"
 
         app:layout_constraintEnd_toEndOf="@+id/edittext_weight"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/edittext_weight"
         app:layout_constraintTop_toBottomOf="@+id/edittext_weight" />
+
+    <EditText
+        android:id="@+id/editTextName"
+        style="?helloEditText"
+        android:layout_marginTop="70dp"
+        android:ems="10"
+        android:hint="Name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_hello" />
 </androidx.constraintlayout.widget.ConstraintLayout>

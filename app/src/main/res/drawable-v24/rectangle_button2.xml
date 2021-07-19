@@ -7,8 +7,7 @@
         android:topRightRadius="15dp"
         android:topLeftRadius="15dp">
     </corners>
-
-    <stroke android:width="2dp" android:color="#50F090"/>
+    <stroke android:width="4dp" android:color="#70CDF8"/>
     <size
         android:height="50dp"
         android:width="70dp" />

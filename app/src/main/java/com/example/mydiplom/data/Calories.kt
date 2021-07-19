@@ -5,7 +5,7 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.android.parcel.Parcelize
+//import kotlinx.android.parcel.Parcelize
 
 
 @Entity(tableName = "calories_table")
@@ -26,6 +26,7 @@ data class Water (
         var dayWater: Int?
         )
 
+
 @Entity(tableName = "pushUps_table")
 data class PushUps (
         @PrimaryKey(autoGenerate = true)
@@ -34,6 +35,7 @@ data class PushUps (
         @ColumnInfo(name = "day_pushUps")
         var dayPushUp: Int?
         )
+
 
 @Entity(tableName = "squats_table")
 data class Squats (
@@ -44,6 +46,7 @@ data class Squats (
         var daySquats: Int?
         )
 
+
 @Entity(tableName = "press_table")
 data class Press (
         @PrimaryKey(autoGenerate = true)
@@ -53,6 +56,7 @@ data class Press (
         var dayPress: Int?
         )
 
+
 @Entity(tableName = "run_table")
 data class Run (
         @PrimaryKey(autoGenerate = true)
@@ -61,6 +65,7 @@ data class Run (
         @ColumnInfo(name = "distance")
         val distance: Int?
         )
+
 
 @Entity(tableName = "day_results_table")
 data class DayResults (
@@ -82,7 +87,6 @@ data class DayResults (
         @ColumnInfo(name = "day_run")
         var dayRun: Int
         )
-
 
 
 @Entity(tableName = "allRuns_table")

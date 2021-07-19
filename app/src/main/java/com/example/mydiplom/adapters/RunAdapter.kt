@@ -9,14 +9,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mydiplom.R
 import com.example.mydiplom.data.AllRuns
+import com.example.mydiplom.databinding.ItemRunBinding
 import com.example.mydiplom.util.TrackingUtility
-import kotlinx.android.synthetic.main.item_run.view.*
+//import kotlinx.android.synthetic.main.item_run.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 class RunAdapter : RecyclerView.Adapter<RunAdapter.RunViewHolder>() {
 
-    inner class RunViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    inner class RunViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val binding = ItemRunBinding.bind(itemView)
+    }
 
     val diffCallback = object : DiffUtil.ItemCallback<AllRuns>() {
         override fun areItemsTheSame(oldItem: AllRuns, newItem: AllRuns): Boolean {
@@ -47,23 +50,25 @@ class RunAdapter : RecyclerView.Adapter<RunAdapter.RunViewHolder>() {
     override fun onBindViewHolder(holder: RunViewHolder, position: Int) {
         val run = differ.currentList[position]
         holder.itemView.apply {
-            Glide.with(this).load(run.img).into(ivRunImage)
-            val calendar = Calendar.getInstance().apply {
-                timeInMillis = run.timestamp
-            }
-            val dateFormat = SimpleDateFormat("dd.MM.yy", Locale.getDefault())
-            tvDate.text = dateFormat.format(calendar.time)
 
-            val avgSpeed = "${run.avgSpeedInKMH}km/h"
-            tvAvgSpeed.text = avgSpeed
+                Glide.with(this).load(run.img).into(holder.binding.ivRunImage)
+                val calendar = Calendar.getInstance().apply {
+                    timeInMillis = run.timestamp
+                }
+                val dateFormat = SimpleDateFormat("dd.MM.yy", Locale.getDefault())
+                holder.binding.tvDate.text = dateFormat.format(calendar.time)
 
-            val distanceInKm = "${run.distanceInMeters / 1000f}km"
-            tvDistance.text = distanceInKm
+                val avgSpeed = "${run.avgSpeedInKMH}km/h"
+                holder.binding.tvAvgSpeed.text = avgSpeed
 
-            tvTime.text = TrackingUtility.getFormattedStopWatchTime(run.timeInMillis)
+                val distanceInKm = "${run.distanceInMeters / 1000f}km"
+                holder.binding.tvDistance.text = distanceInKm
 
-            val caloriesBurned = "${run.caloriesBurned}kcal"
-            tvCalories.text = caloriesBurned
+                holder.binding.tvTime.text = TrackingUtility.getFormattedStopWatchTime(run.timeInMillis)
+
+                val caloriesBurned = "${run.caloriesBurned}kcal"
+                holder.binding.tvCalories.text = caloriesBurned
+
         }
     }
 

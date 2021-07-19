@@ -42,7 +42,6 @@ import javax.inject.Inject
 typealias PolyLine = MutableList<LatLng>
 typealias PolyLines = MutableList<PolyLine>
 
-
 @AndroidEntryPoint
 class TrackingService: LifecycleService() {
 
@@ -51,12 +50,10 @@ class TrackingService: LifecycleService() {
 
     @Inject
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-
     private val timeRunInSeconds = MutableLiveData<Long>()
 
     @Inject
     lateinit var baseNotificationBuilder: NotificationCompat.Builder
-
     lateinit var curNotificationBuilder: NotificationCompat.Builder
 
     companion object {
@@ -64,8 +61,6 @@ class TrackingService: LifecycleService() {
         val isTracking = MutableLiveData<Boolean>()
         val pathPoints = MutableLiveData<PolyLines>()
     }
-
-
 
     private fun postInitValues() {
         isTracking.postValue(false)
@@ -85,9 +80,6 @@ class TrackingService: LifecycleService() {
         })
     }
 
-
-
-
     private fun killService() {
         serviceKilled = true
         isFirstRun = true
@@ -96,10 +88,6 @@ class TrackingService: LifecycleService() {
         stopForeground(true)
         stopSelf()
     }
-
-
-
-
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         intent?.let {
@@ -132,7 +120,6 @@ class TrackingService: LifecycleService() {
     private var timeRun = 0L
     private var timeStarted = 0L
     private var lastSecondsTimestamp = 0L
-
     private fun startTimer() {
         addEmptyPolyline()
         isTracking.postValue(true)
@@ -154,12 +141,10 @@ class TrackingService: LifecycleService() {
         }
     }
 
-
     private fun pauseService() {
         isTracking.postValue(false)
         isTimerEnabled = false
     }
-
 
     private fun updateNotificationTrackingState(isTracking: Boolean) {
         val notificationActionText = if(isTracking) "Pause" else "Resume"
@@ -217,12 +202,10 @@ class TrackingService: LifecycleService() {
                         addPathPoint(location)
                         Timber.d("NEW LOCATION: ${location.latitude}, ${location.longitude}")
                     }
-
                 }
             }
         }
     }
-
 
     private fun addPathPoint(location: Location?) {
         location?.let {
@@ -239,21 +222,15 @@ class TrackingService: LifecycleService() {
         pathPoints.postValue(this)
     } ?: pathPoints.postValue(mutableListOf(mutableListOf()))
 
-
-
     private fun startForegroundService() {
         startTimer()
         isTracking.postValue(true)
-
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE)
                 as NotificationManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNitificationChannel(notificationManager)
         }
-
         startForeground(NOTIFICATION_ID, baseNotificationBuilder.build())
-        
-        
         timeRunInSeconds.observe(this, Observer {
             if(!serviceKilled) {
                 val notification = curNotificationBuilder
@@ -263,8 +240,6 @@ class TrackingService: LifecycleService() {
         })
     }
 
-
-
     private fun createNitificationChannel(notification: NotificationManager) {
         val channel = NotificationChannel(
                 NOTIFICATION_CHANNEL_ID,
@@ -272,6 +247,5 @@ class TrackingService: LifecycleService() {
                 NotificationManager.IMPORTANCE_LOW
         )
         notification.createNotificationChannel(channel)
-
     }
 }

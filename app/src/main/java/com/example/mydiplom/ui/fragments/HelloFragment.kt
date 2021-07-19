@@ -7,24 +7,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
+import android.widget.*
 
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.mydiplom.R
-import kotlinx.android.synthetic.main.fragment_hello.*
-
 
 class HelloFragment : Fragment() {
 
     private lateinit var textHello: TextView
+    private lateinit var editName: EditText
     private lateinit var editHeight: EditText
     private lateinit var editWeight: EditText
     private lateinit var buttonContinue: Button
+    private lateinit var checkBox: CheckBox
 
     lateinit var sharedPreferences: SharedPreferences
     var isRemember = false
@@ -42,11 +39,12 @@ class HelloFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_hello, container, false)
         fitFragment = FitFragment()
-
         textHello = root.findViewById(R.id.text_hello)
+        editName = root.findViewById(R.id.editTextName)
         editHeight = root.findViewById(R.id.edittext_height)
         editWeight = root.findViewById(R.id.edittext_weight)
         buttonContinue = root.findViewById(R.id.button_continue)
+        checkBox = root.findViewById(R.id.checkBox)
 
         sharedPreferences = requireActivity().getSharedPreferences(
                 "SHARED_PREF",
@@ -56,18 +54,17 @@ class HelloFragment : Fragment() {
                 false)
 
         if (isRemember) {
-
-            //replaceFragment(fitFragment)
             findNavController().navigate(R.id.action_helloFragment_to_fitFragment)
         }
-
         buttonContinue.setOnClickListener {
 
+            val name: String = editName.text.toString()
             val height: Int = editHeight.text.toString().toInt()
             val weight: Int = editWeight.text.toString().toInt()
             val checked: Boolean = checkBox.isChecked
 
             val editor: SharedPreferences.Editor = sharedPreferences.edit()
+            editor.putString("NAME", name)
             editor.putInt("HEIGHT", height)
             editor.putInt("WEIGHT", weight)
             editor.putBoolean("CHECKBOX", checked)
@@ -75,16 +72,10 @@ class HelloFragment : Fragment() {
 
             Toast.makeText(requireContext(), "Information saved", Toast.LENGTH_SHORT).show()
 
-            //replaceFragment(fitFragment)
             findNavController().navigate(R.id.action_helloFragment_to_fitFragment)
 
         }
         return root
     }
 
-    private fun replaceFragment(fragment: Fragment) {
-        val transaction = parentFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment, fragment)
-        transaction.commit()
-    }
 }

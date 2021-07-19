@@ -19,7 +19,6 @@ class CaloriesRepository(private val dao: CaloriesDao) {
 
     val readRun: LiveData<Int> = dao.readRun()
 
-
     fun updateCalories(calories: Calories) {
         dao.updateCalories(calories)
     }
@@ -50,23 +49,5 @@ class CaloriesRepository(private val dao: CaloriesDao) {
 
     suspend fun insertRun(run: AllRuns) = dao.insertRun(run)
 
-    suspend fun deleteRun(run: AllRuns) = dao.insertRun(run)
-
     fun getAllRunsSortedByDate() = dao.getAllRunsSortedByDate()
-
-    fun getAllRunsSortedByDistance() = dao.getAllRunsSortedByDistance()
-
-    fun getAllRunsSortedByTimeInMillis() = dao.getAllRunsSortedByTimeInMillis()
-
-    fun getAllRunsSortedByAvgSpeed() = dao.getAllRunsSortedByAvgSpeed()
-
-    fun getAllRunsSortedByCaloriesBurned() = dao.getAllRunsSortedByCaloriesBurned()
-
-    fun getTotalAvgSpeed() = dao.getTotalAvgSpeed()
-
-    fun getTotalDistance() = dao.getTotalDistance()
-
-    fun getTotalCaloriesBurned() = dao.getTotalCaloriesBurned()
-
-    fun getTotalTimeInMillis() = dao.getTotalTimeInMillis()
 }

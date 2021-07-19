@@ -20,13 +20,11 @@ import dagger.hilt.android.scopes.ServiceScoped
 @InstallIn(ServiceComponent::class)
 object ServiceModule {
 
-
     @ServiceScoped
     @Provides
     fun provideFusedLocationProviderClient(
             @ApplicationContext app: Context
     ) = FusedLocationProviderClient(app)
-
 
     @ServiceScoped
     @Provides
@@ -40,8 +38,6 @@ object ServiceModule {
             },
             PendingIntent.FLAG_UPDATE_CURRENT
     )
-
-
 
     @ServiceScoped
     @Provides

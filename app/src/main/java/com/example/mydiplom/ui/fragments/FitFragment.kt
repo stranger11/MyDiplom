@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -23,13 +24,13 @@ import com.example.mydiplom.ui.fragments.FitFragmentDirections
 import com.example.mydiplom.R
 import com.example.mydiplom.data.DayResults
 import com.example.mydiplom.data.Run
+import com.example.mydiplom.databinding.FragmentFitBinding
 import com.example.mydiplom.ui.CaloriesViewModel
+import com.example.mydiplom.util.Constants.NIGHT_MODE
 import com.example.mydiplom.util.Constants.REQUEST_CODE_LOCATION_PERMISSION
+import com.example.mydiplom.util.Constants.SAVED_STATE
 import com.example.mydiplom.util.TrackingUtility
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_fit.*
-import kotlinx.android.synthetic.main.fragment_fit.view.*
-import me.itangqi.waveloadingview.WaveLoadingView
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 
@@ -37,12 +38,11 @@ import pub.devrel.easypermissions.EasyPermissions
 @AndroidEntryPoint
 class FitFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
+    private var _binding: FragmentFitBinding? = null
+    private val binding get() = _binding!!
 
     private val calViewModel: CaloriesViewModel by viewModels()
-
     private lateinit var lottiePress: LottieAnimationView
-
-
     var normWaterForTheDay: Double = 0.0
 
     lateinit var preferences: SharedPreferences
@@ -53,24 +53,21 @@ class FitFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         (activity as AppCompatActivity).supportActionBar?.hide()
     }
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_fit, container, false)
-
-        root.date_text.text = TrackingUtility.getCurrentDate()
-
-        //lottiePress = root.findViewById(R.id.lottie_press)
+        _binding = FragmentFitBinding.inflate(inflater, container, false)
+        val view = binding.root
+        initSwitchTheme(view)
+        binding.dateText.text = TrackingUtility.getCurrentDate()
 
         calViewModel.readCalorie.observe(viewLifecycleOwner, Observer {
             it?.let {
                 YoYo.with(Techniques.SlideInDown)
                     .duration(500)
-                    .playOn(textCalories)
-                textCalories.text = it.toInt().toString()
+                    .playOn(binding.textCalories)
+                binding.textCalories.text = it.toInt().toString()
             }
         })
 
@@ -78,8 +75,8 @@ class FitFragment : Fragment(), EasyPermissions.PermissionCallbacks {
             it?.let {
                 YoYo.with(Techniques.SlideInLeft)
                         .duration(500)
-                        .playOn(textItogWater)
-                textItogWater.text = it.toString()
+                        .playOn(binding.textItogWater)
+                binding.textItogWater.text = it.toString()
             }
         })
 
@@ -87,8 +84,8 @@ class FitFragment : Fragment(), EasyPermissions.PermissionCallbacks {
             it?.let {
                 YoYo.with(Techniques.SlideInLeft)
                         .duration(500)
-                        .playOn(textItogPushUp)
-                textItogPushUp.text = it.toString()
+                        .playOn(binding.textItogPushUp)
+                binding.textItogPushUp.text = it.toString()
             }
         })
 
@@ -96,8 +93,8 @@ class FitFragment : Fragment(), EasyPermissions.PermissionCallbacks {
             it?.let {
                 YoYo.with(Techniques.SlideInLeft)
                         .duration(500)
-                        .playOn(textItogSquat)
-                textItogSquat.text = it.toString()
+                        .playOn(binding.textItogSquat)
+                binding.textItogSquat.text = it.toString()
             }
         })
 
@@ -105,8 +102,8 @@ class FitFragment : Fragment(), EasyPermissions.PermissionCallbacks {
             it?.let {
                 YoYo.with(Techniques.SlideInLeft)
                         .duration(500)
-                        .playOn(textItogPress)
-                textItogPress.text = it.toString()
+                        .playOn(binding.textItogPress)
+                binding.textItogPress.text = it.toString()
             }
         })
 
@@ -114,8 +111,8 @@ class FitFragment : Fragment(), EasyPermissions.PermissionCallbacks {
             it?.let {
                 YoYo.with(Techniques.SlideInLeft)
                         .duration(500)
-                        .playOn(textItogRun)
-                textItogRun.text = it.toString()
+                        .playOn(binding.textItogRun)
+                binding.textItogRun.text = it.toString()
             }
         })
 
@@ -123,109 +120,108 @@ class FitFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         val weight = preferences.getInt("WEIGHT", 0)
         normWaterForTheDay = 33.0 * weight
 
-        root.textNormOfDayWWater.text = normWaterForTheDay.toString()
+        binding.textNormOfDayWWater.text = normWaterForTheDay.toString()
 
-        root.image_water.setOnClickListener {
-            //showWaterLevel()
-            val a = textItogWater.text.toString().toInt()
+        binding.imageWater.setOnClickListener {
+            val a = binding.textItogWater.text.toString().toInt()
             val action = FitFragmentDirections.actionFitFragmentToNormOfDayWaterFragment(a)
             findNavController().navigate(action)
         }
 
-        root.textGlassOfWater.setOnClickListener {
+        binding.textGlassOfWater.setOnClickListener {
             calViewModel.updateWater(250)
         }
 
-        root.textCupOfCoffee.setOnClickListener {
+        binding.textCupOfCoffee.setOnClickListener {
             calViewModel.updateWater(150)
         }
 
-        root.textCupOfTea.setOnClickListener {
+        binding.textCupOfTea.setOnClickListener {
             calViewModel.updateWater(150)
         }
 
         //PushUps
 
-        root.text20PushUps.setOnClickListener {
+        binding.text20PushUps.setOnClickListener {
             calViewModel.updateCalories(18)
             calViewModel.updatePushUps(20)
         }
 
-        root.text30PushUps.setOnClickListener {
+        binding.text30PushUps.setOnClickListener {
             calViewModel.updateCalories(27)
             calViewModel.updatePushUps(30)
         }
 
-        root.text50PushUps.setOnClickListener {
+        binding.text50PushUps.setOnClickListener {
             calViewModel.updateCalories(45)
             calViewModel.updatePushUps(50)
         }
 
-        root.textMyPushUps.setOnClickListener {
-            calViewModel.updateCalories(textMyPushUps.text.toString().toInt())
-            calViewModel.updatePushUps(textMyPushUps.text.toString().toInt())
+        binding.textMyPushUps.setOnClickListener {
+            calViewModel.updateCalories(binding.textMyPushUps.text.toString().toInt())
+            calViewModel.updatePushUps(binding.textMyPushUps.text.toString().toInt())
         }
 
         //Squats
 
-        root.text20Squats.setOnClickListener {
+        binding.text20Squats.setOnClickListener {
             calViewModel.updateCalories(9)
             calViewModel.updateSquats(20)
         }
 
-        root.text30Squats.setOnClickListener {
+        binding.text30Squats.setOnClickListener {
             calViewModel.updateCalories(13)
             calViewModel.updateSquats(30)
         }
 
-        root.text50Squats.setOnClickListener {
+        binding.text50Squats.setOnClickListener {
             calViewModel.updateCalories(22)
             calViewModel.updateSquats(50)
         }
 
-        root.textMySquats.setOnClickListener {
-            val a  = textMySquats.text.toString().toInt() * 0.43
+        binding.textMySquats.setOnClickListener {
+            val a  = binding.textMySquats.text.toString().toInt() * 0.43
             calViewModel.updateCalories(a.toInt())
-            calViewModel.updateSquats(textMySquats.text.toString().toInt())
+            calViewModel.updateSquats(binding.textMySquats.text.toString().toInt())
         }
 
         //Press
 
-        root.text30Press.setOnClickListener {
+        binding.text30Press.setOnClickListener {
             calViewModel.updateCalories(8)
             calViewModel.updatePress(30)
         }
 
-        root.text50Press.setOnClickListener {
+        binding.text50Press.setOnClickListener {
             calViewModel.updateCalories(13)
             calViewModel.updatePress(50)
         }
 
-        root.text100Press.setOnClickListener {
+        binding.text100Press.setOnClickListener {
             calViewModel.updateCalories(26)
             calViewModel.updatePress(100)
         }
 
-        root.textMyPress.setOnClickListener {
-            val a = textMyPress.text.toString().toInt() * 0.26
+        binding.textMyPress.setOnClickListener {
+            val a = binding.textMyPress.text.toString().toInt() * 0.26
             calViewModel.updateCalories(a.toInt())
-            calViewModel.updatePress(textMyPress.text.toString().toInt())
+            calViewModel.updatePress(binding.textMyPress.text.toString().toInt())
         }
 
-        root.button_total_day.setOnClickListener {
+        binding.buttonTotalDay.setOnClickListener {
 
-            val date = date_text.text.toString()
-            val dayWater = textItogWater.text.toString().toInt()
-            val dayCalories = textCalories.text.toString().toDouble()
-            val dayPushUps = textItogPushUp.text.toString().toInt()
-            val daySquats = textItogSquat.text.toString().toInt()
-            val dayPress = textItogPress.text.toString().toInt()
-            val dayRun = textItogRun.text.toString().toInt()
+            val date = binding.dateText.text.toString()
+            val dayWater = binding.textItogWater.text.toString().toInt()
+            val dayCalories = binding.textCalories.text.toString().toDouble()
+            val dayPushUps = binding.textItogPushUp.text.toString().toInt()
+            val daySquats = binding.textItogSquat.text.toString().toInt()
+            val dayPress = binding.textItogPress.text.toString().toInt()
+            val dayRun = binding.textItogRun.text.toString().toInt()
 
             val action = FitFragmentDirections.actionFitFragmentToAddToStatisticFragment(
                 date,
-                dayWater,
                 dayCalories.toInt(),
+                dayWater,
                 dayPushUps,
                 daySquats,
                 dayPress,
@@ -236,28 +232,32 @@ class FitFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
         }
 
-        root.image_settings.setOnClickListener {
+        binding.imageSettings.setOnClickListener {
             findNavController().navigate(R.id.action_fitFragment_to_helloFragment)
         }
 
 
-        root.image_statistic.setOnClickListener {
+        binding.imageStatistic.setOnClickListener {
             findNavController().navigate(R.id.action_fitFragment_to_statisticFragment)
         }
 
-        root.textRun.setOnClickListener {
+        binding.textRun.setOnClickListener {
             findNavController().navigate(R.id.action_fitFragment_to_trackingFragment)
         }
 
-        root.imageView7.setOnClickListener {
+        binding.imageView7.setOnClickListener {
             findNavController().navigate(R.id.action_fitFragment_to_allRunsFragment)
         }
 
-        root.image_press.setOnClickListener {
+        binding.imagePress.setOnClickListener {
             showPressAnimation()
         }
 
-       return root
+        binding.imageSettings.setOnClickListener {
+            findNavController().navigate(R.id.action_fitFragment_to_settingsFragment)
+        }
+
+       return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -271,7 +271,7 @@ class FitFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         dialog.setContentView(R.layout.water_level_dialog_window)
         dialog.window?.setBackgroundDrawableResource(R.color.black)
         lottiePress = dialog.findViewById(R.id.lottie_press)
-         lottiePress.speed = 3f
+        lottiePress.speed = 3f
         lottiePress.playAnimation()
 
         dialog.show()
@@ -302,6 +302,7 @@ class FitFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         }
     }
 
+
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
 
     }
@@ -321,5 +322,40 @@ class FitFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
+    }
+
+    fun initSwitchTheme(v: View) {
+        if (loadState()) {
+            binding.themeSwitch.isChecked = true
+        }
+        binding.themeSwitch.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                saveState(true)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                saveState(false)
+            }
+        }
+    }
+
+    private fun saveState(state: Boolean) {
+        val sharedPreferences: SharedPreferences =
+                requireActivity().getSharedPreferences(SAVED_STATE, Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putBoolean(NIGHT_MODE, state)
+        editor.apply()
+    }
+
+    private fun loadState(): Boolean {
+        val sharedPreferences: SharedPreferences =
+                requireActivity().getSharedPreferences(SAVED_STATE, Context.MODE_PRIVATE)
+        return sharedPreferences.getBoolean(NIGHT_MODE, false)
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

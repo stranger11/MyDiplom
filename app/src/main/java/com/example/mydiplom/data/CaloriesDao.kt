@@ -89,6 +89,7 @@ interface CaloriesDao {
     suspend fun deleteRun(run: AllRuns)
 
 
+
     @Query("SELECT * FROM allRuns_table ORDER BY timestamp DESC")
     fun getAllRunsSortedByDate(): LiveData<List<AllRuns>>
 
@@ -105,6 +106,7 @@ interface CaloriesDao {
     fun getAllRunsSortedByDistance(): LiveData<List<AllRuns>>
 
 
+
     @Query("SELECT SUM(timeInMillis) FROM allRuns_table")
     fun getTotalTimeInMillis(): LiveData<Long>
 
@@ -116,7 +118,5 @@ interface CaloriesDao {
 
     @Query("SELECT AVG(avgSpeedInKMH) FROM allRuns_table")
     fun getTotalAvgSpeed(): LiveData<Float>
-
-
 
 }

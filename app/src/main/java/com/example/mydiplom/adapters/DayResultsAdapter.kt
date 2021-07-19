@@ -1,17 +1,22 @@
-package com.example.mydiplom
+package com.example.mydiplom.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mydiplom.R
 import com.example.mydiplom.data.DayResults
-import kotlinx.android.synthetic.main.custom_row.view.*
+import com.example.mydiplom.databinding.CustomRowBinding
+
+
 
 class DayResultsAdapter: RecyclerView.Adapter<DayResultsAdapter.MyViewHolder>() {
 
     private var resultList = emptyList<DayResults>()
 
-    class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
+    class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+        val binding = CustomRowBinding.bind(itemView)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(
@@ -22,13 +27,15 @@ class DayResultsAdapter: RecyclerView.Adapter<DayResultsAdapter.MyViewHolder>() 
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = resultList[position]
-        holder.itemView.result_date.text = currentItem.date
-        holder.itemView.result_calories.text = currentItem.dayCalories.toString()
-        holder.itemView.result_water.text = currentItem.dayWater.toString()
-        holder.itemView.result_pushups.text = currentItem.dayPushUps.toString()
-        holder.itemView.result_squats.text = currentItem.daySquats.toString()
-        holder.itemView.result_press.text = currentItem.dayPress.toString()
-        holder.itemView.result_run.text = currentItem.dayRun.toString()
+        with(holder) {
+            binding.resultDate.text = currentItem.date
+            binding.resultCalories.text = currentItem.dayCalories.toString()
+            binding.resultWater.text = currentItem.dayWater.toString()
+            binding.resultPushups.text = currentItem.dayPushUps.toString()
+            binding.resultSquats.text = currentItem.daySquats.toString()
+            binding.resultPress.text = currentItem.dayPress.toString()
+            binding.resultRun.text = currentItem.dayRun.toString()
+        }
     }
 
     fun setData(dayResult: List<DayResults>) {

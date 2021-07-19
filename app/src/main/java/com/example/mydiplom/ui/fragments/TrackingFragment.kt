@@ -15,6 +15,7 @@ import com.example.mydiplom.R
 import com.example.mydiplom.data.AllRuns
 import com.example.mydiplom.data.Calories
 import com.example.mydiplom.data.Run
+import com.example.mydiplom.databinding.FragmentTrackingBinding
 import com.example.mydiplom.services.PolyLine
 import com.example.mydiplom.services.TrackingService
 import com.example.mydiplom.ui.CaloriesViewModel
@@ -31,13 +32,15 @@ import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_tracking.*
+//import kotlinx.android.synthetic.main.fragment_tracking.*
 import java.util.*
 import kotlin.math.round
 
 @AndroidEntryPoint
 class TrackingFragment : Fragment() {
 
+
+    private lateinit var binding: FragmentTrackingBinding
 
     private val viewModel: CaloriesViewModel by viewModels()
 
@@ -67,17 +70,18 @@ class TrackingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mapView.onCreate(savedInstanceState)
-        btnToggleRun.setOnClickListener {
+        binding = FragmentTrackingBinding.bind(view)
+        binding.mapView.onCreate(savedInstanceState)
+        binding.btnToggleRun.setOnClickListener {
             toggleRun()
         }
 
-        btnFinishRun.setOnClickListener {
+        binding.btnFinishRun.setOnClickListener {
             zoomToSeeWholeTrack()
             endRunAndSaveToDb()
         }
 
-        mapView.getMapAsync {
+        binding.mapView.getMapAsync {
             map = it
             addAllPolylines()
         }
@@ -98,7 +102,7 @@ class TrackingFragment : Fragment() {
         TrackingService.timeRunInMillis.observe(viewLifecycleOwner, Observer {
             curTimeInMillis = it
             val formattedTime = TrackingUtility.getFormattedStopWatchTime(curTimeInMillis,  true)
-            tvTimer.text = formattedTime
+            binding.tvTimer.text = formattedTime
         })
     }
 
@@ -155,12 +159,12 @@ class TrackingFragment : Fragment() {
     private fun updateTracking(isTracking: Boolean) {
         this.isTracking = isTracking
         if(!isTracking) {
-            btnToggleRun.text = "Start"
-            btnFinishRun.visibility = View.VISIBLE
+            binding.btnToggleRun.text = "Start"
+            binding.btnFinishRun.visibility = View.VISIBLE
         } else {
-            btnToggleRun.text = "Stop"
+            binding.btnToggleRun.text = "Stop"
             menu?.getItem(0)?.isVisible = true
-            btnFinishRun.visibility = View.GONE
+            binding.btnFinishRun.visibility = View.GONE
         }
     }
 
@@ -175,9 +179,9 @@ class TrackingFragment : Fragment() {
         map?.moveCamera(
                 CameraUpdateFactory.newLatLngBounds(
                         bounds.build(),
-                        mapView.width,
-                        mapView.height,
-                        (mapView.height * 0.05f).toInt()
+                        binding.mapView.width,
+                        binding.mapView.height,
+                        (binding.mapView.height * 0.05f).toInt()
                 )
         )
     }
@@ -247,37 +251,37 @@ class TrackingFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        mapView?.onResume()
+        binding.mapView?.onResume()
     }
 
     override fun onStart() {
         super.onStart()
         (activity as AppCompatActivity).supportActionBar?.show()
-        mapView?.onStart()
+        binding.mapView?.onStart()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView?.onStop()
+        binding.mapView?.onStop()
     }
 
     override fun onPause() {
         super.onPause()
-        mapView?.onPause()
+        binding.mapView?.onPause()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView?.onLowMemory()
+        binding.mapView?.onLowMemory()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mapView?.onDestroy()
+        binding.mapView?.onDestroy()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mapView?.onSaveInstanceState(outState)
+        binding.mapView?.onSaveInstanceState(outState)
     }
 }

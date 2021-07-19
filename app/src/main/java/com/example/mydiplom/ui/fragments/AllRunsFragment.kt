@@ -10,13 +10,18 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mydiplom.R
 import com.example.mydiplom.adapters.RunAdapter
+import com.example.mydiplom.databinding.FragmentAddToStatisticBinding
+import com.example.mydiplom.databinding.FragmentAllRunsBinding
 import com.example.mydiplom.ui.CaloriesViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_all_runs.*
+//import kotlinx.android.synthetic.main.fragment_all_runs.*
 
 
 @AndroidEntryPoint
 class AllRunsFragment : Fragment() {
+
+    private var _binding: FragmentAllRunsBinding? = null
+    private val binding get() = _binding!!
 
     private val viewModel: CaloriesViewModel by viewModels()
 
@@ -24,7 +29,9 @@ class AllRunsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_all_runs, container, false)
+        _binding = FragmentAllRunsBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,11 +42,9 @@ class AllRunsFragment : Fragment() {
         })
     }
 
-    private fun setupRecyclerView() = rvRuns.apply {
+    private fun setupRecyclerView() = binding.rvRuns.apply {
         runAdapter = RunAdapter()
         adapter = runAdapter
         layoutManager = LinearLayoutManager(requireContext())
     }
-
-
 }

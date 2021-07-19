@@ -23,7 +23,7 @@
     <fragment
         android:id="@+id/fitFragment"
         android:name="com.example.mydiplom.ui.fragments.FitFragment"
-        android:label="FitFragment" >
+        android:label=" ">
         <action
             android:id="@+id/action_fitFragment_to_statisticFragment"
             app:destination="@id/statisticFragment" />
@@ -42,6 +42,9 @@
         <action
             android:id="@+id/action_fitFragment_to_allRunsFragment"
             app:destination="@id/allRunsFragment" />
+        <action
+            android:id="@+id/action_fitFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
 
 
     </fragment>
@@ -92,8 +95,8 @@
     <fragment
         android:id="@+id/trackingFragment"
         android:name="com.example.mydiplom.ui.fragments.TrackingFragment"
-        android:label="fragment_tracking"
-        tools:layout="@layout/fragment_tracking" >
+        android:label=" "
+        tools:layout="@layout/fragment_tracking">
         <action
             android:id="@+id/action_trackingFragment_to_fitFragment"
             app:destination="@id/fitFragment" />
@@ -101,8 +104,8 @@
     <fragment
         android:id="@+id/normOfDayWaterFragment"
         android:name="com.example.mydiplom.ui.fragments.NormOfDayWaterFragment"
-        android:label="fragment_norm_of_day_water"
-        tools:layout="@layout/fragment_norm_of_day_water" >
+        android:label=" "
+        tools:layout="@layout/fragment_norm_of_day_water">
         <action
             android:id="@+id/action_normOfDayWaterFragment_to_fitFragment"
             app:destination="@id/fitFragment" />
@@ -116,4 +119,13 @@
         android:name="com.example.mydiplom.ui.fragments.AllRunsFragment"
         android:label="fragment_all_runs"
         tools:layout="@layout/fragment_all_runs" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.mydiplom.ui.fragments.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_fitFragment"
+            app:destination="@id/fitFragment" />
+    </fragment>
 </navigation>
